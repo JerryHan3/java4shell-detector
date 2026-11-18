@@ -59,13 +59,26 @@ def checkJavaVer(verstr: str):
     return (0, 0) <= ver_tup < (0, 1, 1)
 
 def godot_bridge(path = "java"):
-    verstr = getJavaVer()
+    verstr = getJavaVer(path)
     check_result = checkJavaVer(verstr)
     return verstr, check_result
 
+def main():
+    """
+    Entry point invoked by PyRunner, which imports this module and calls ``main()``.  
+    
+    Reads the optional Java binary path from stdin and prints a single line
+    ``"<version> <check_result>"`` for Godot to consume. Errors are reported as
+    ``"ERROR <message>"`` so the host can surface them instead of hanging.
+    """
+    try:
+        path = input()
+        if path == "": path = "java"
+        verstr = getJavaVer(path)
+        check_result = checkJavaVer(verstr)
+        print(f"{verstr} {check_result}", flush=True)
+    except Exception as exc:
+        print(f"ERROR {exc}", flush=True)
+
 if __name__ == "__main__":
-    path = input()
-    if path == "": path = "java"
-    verstr = getJavaVer(path)
-    check_result = checkJavaVer(verstr)
-    print(f"{verstr} {check_result}")
+    main()
