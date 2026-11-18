@@ -1,0 +1,20 @@
+﻿keys,zh_CN,en_US
+general.title,Java4Shell 漏洞检测,Java4Shell Detector
+general.checking,检测中,Checking
+java_check.result.affected,危险,Affected
+java_check.result.safe,安全,Safe
+java_check.text.title,Java版本检测,Java Version
+java_check.text.version,当前版本,Current Version
+java_check.text.result,检测结果,Check Result
+cpu_check.result.unsupported,不支持,Unsupported
+cpu_check.result.supported,支持,Supported
+cpu_check.text.title,CPU指令集,CPU Instruction Set
+cpu_check.text.explanation,漏洞需要目标设备的CPU支持上述4项CPU指令集才能生效,"To meet the requirement of Java4Shell vulnerability, the CPU on target machine have to support all 4 instruction sets above."
+final_result.danger.issue,设备存在漏洞,Device Vulnerable
+final_result.danger.fix,请尽快更新安装的Java版本！,Please update your Java installation ASAP!
+final_result.risk.issue,漏洞因CPU不兼容被规避,Mitigated by Incompatible CPU
+final_result.risk.fix,您的Java版本仍易受感染，建议尽快更新。,"Your Java installation is still vulnerable, and we recommend to update it ASAP."
+final_result.safe.issue,设备安全,Device Safe
+final_result.safe.fix,恭喜！您的设备不受Java4Shell漏洞的影响。,Nice! Your device is not affected by Java4Shell vulnerability.
+final_result.checking.issue,正在检测漏洞……,Checking Vulnerability...
+final_result.checking.fix,请稍等，我们正在收集所需数据。,Please standby while we gather needed data.

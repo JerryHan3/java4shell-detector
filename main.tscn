@@ -1,0 +1,504 @@
+[gd_scene format=3 uid="uid://ceckcsf08p2pr"]
+
+[ext_resource type="Script" uid="uid://dp7bg5ugdpocr" path="res://script/data_core.gd" id="1_5vw27"]
+[ext_resource type="Theme" uid="uid://df32swy2rhpfo" path="res://major.theme" id="1_h2yge"]
+[ext_resource type="Texture2D" uid="uid://06lit2bqknad" path="res://assets/icon/播放_play.svg" id="2_1bvp3"]
+[ext_resource type="SystemFont" uid="uid://omamte8e3wat" path="res://assets/sans_serif_system_font.tres" id="2_lquwl"]
+[ext_resource type="Texture2D" uid="uid://cthafweamhueh" path="res://assets/icon/文件夹-开_folder-open.svg" id="3_lquwl"]
+[ext_resource type="Texture2D" uid="uid://ly5bek2of5dm" path="res://assets/icon/保护_protect.svg" id="5_7mycd"]
+[ext_resource type="Script" uid="uid://by5qrvrjh3ipd" path="res://script/instruction_set_id.gd" id="5_272bh"]
+[ext_resource type="Texture2D" uid="uid://dkk3ef5dm45m2" path="res://assets/icon/加载_loading.svg" id="6_5vw27"]
+[ext_resource type="Script" uid="uid://3wm2wbcyjdfu" path="res://script/java_info_container.gd" id="6_kek77"]
+[ext_resource type="Texture2D" uid="uid://bb1mwnibelcwi" path="res://assets/icon/危害_harm.svg" id="8_4c57u"]
+[ext_resource type="Texture2D" uid="uid://cxddrlfqcd5uy" path="res://assets/icon/校验_check-one.svg" id="8_kek77"]
+[ext_resource type="Script" uid="uid://ipl8p8vm3sq1" path="res://script/cpu_info_container.gd" id="10_efxa6"]
+[ext_resource type="Script" uid="uid://dquj4wxelkjfg" path="res://script/result_container.gd" id="12_dg77c"]
+[ext_resource type="Texture2D" uid="uid://dfeyrh5qiiayh" path="res://assets/icon/注意_attention.svg" id="14_vivmo"]
+[ext_resource type="Texture2D" uid="uid://2y6ips5a8a2" path="res://assets/icon/警报_alarm.svg" id="15_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://bvyaw4q047kh2" path="res://assets/icon/报错_caution.svg" id="16_2cqfq"]
+[ext_resource type="Script" uid="uid://c3yprjwtdxr1a" path="res://script/quit.gd" id="17_yaehf"]
+[ext_resource type="Script" uid="uid://c03dxcar1x4f4" path="res://script/report.gd" id="18_074og"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_maftn"]
+font = ExtResource("2_lquwl")
+font_size = 48
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bd47y"]
+font = ExtResource("2_lquwl")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5dfkw"]
+font = ExtResource("2_lquwl")
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_thkbs"]
+font = ExtResource("2_lquwl")
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4c57u"]
+font = ExtResource("2_lquwl")
+font_size = 24
+font_color = Color(0.2901961, 0.5647059, 0.8862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_efxa6"]
+font = ExtResource("2_lquwl")
+font_size = 24
+font_color = Color(0.2901961, 0.5647059, 0.8862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dg77c"]
+font = ExtResource("2_lquwl")
+font_size = 24
+font_color = Color(0.2901961, 0.5647059, 0.8862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ycdy4"]
+font = ExtResource("2_lquwl")
+font_size = 24
+font_color = Color(0.2901961, 0.5647059, 0.8862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_w48qg"]
+font = ExtResource("2_lquwl")
+font_size = 24
+font_color = Color(0.2901961, 0.5647059, 0.8862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1kscl"]
+font = ExtResource("2_lquwl")
+font_size = 48
+font_color = Color(0.2901961, 0.5647059, 0.8862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pi62g"]
+font = ExtResource("2_lquwl")
+font_size = 24
+font_color = Color(0.2901961, 0.5647059, 0.8862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wa5ca"]
+font = ExtResource("2_lquwl")
+font_size = 48
+font_color = Color(0.8156863, 0.007843138, 0.105882354, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_yaehf"]
+font_names = PackedStringArray("Ubuntu Mono", "DejaVu Sans Mono", "Consolas", "Courier New", "FreeMono", "Monospace")
+
+[node name="Main" type="Control" unique_id=750168606]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5vw27")
+cpu_check_path = "res://script/python/checkCpuSet.py"
+java_check_path = "res://script/python/checkJavaVer.py"
+
+[node name="Background" type="ColorRect" parent="." unique_id=257270653]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VSplitContainer" type="VBoxContainer" parent="." unique_id=181519489]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleContainer" type="MarginContainer" parent="VSplitContainer" unique_id=1292485654]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_h2yge")
+theme_override_constants/margin_top = 16
+
+[node name="MainTitle" type="Label" parent="VSplitContainer/TitleContainer" unique_id=1111787679]
+layout_mode = 2
+text = "general.title"
+label_settings = SubResource("LabelSettings_maftn")
+
+[node name="DetectionContainer" type="MarginContainer" parent="VSplitContainer" unique_id=1902797409]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StartupScreen" type="Control" parent="VSplitContainer/DetectionContainer" unique_id=159423557]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="VSplitContainer/DetectionContainer/StartupScreen" unique_id=864174056]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -110.5
+offset_right = 52.0
+offset_bottom = -6.4999695
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_h2yge")
+icon = ExtResource("2_1bvp3")
+flat = true
+
+[node name="JavaFileSelect" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/StartupScreen" unique_id=1793718373]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -0.5
+offset_right = 300.0
+offset_bottom = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FileSelection" type="LineEdit" parent="VSplitContainer/DetectionContainer/StartupScreen/JavaFileSelect" unique_id=1665768901]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_h2yge")
+placeholder_text = "Choose custom java binary..."
+
+[node name="FileChooseButton" type="Button" parent="VSplitContainer/DetectionContainer/StartupScreen/JavaFileSelect" unique_id=977001286]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("3_lquwl")
+expand_icon = true
+
+[node name="DetectionScreen" type="HBoxContainer" parent="VSplitContainer/DetectionContainer" unique_id=427040985]
+visible = false
+layout_mode = 2
+
+[node name="JavaInfoMargin" type="MarginContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen" unique_id=1441723977]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_h2yge")
+
+[node name="JavaInfoContainer" type="VBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin" unique_id=322285077]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("6_kek77")
+safe_icon = ExtResource("5_7mycd")
+affected_icon = ExtResource("8_4c57u")
+checking_icon = ExtResource("6_5vw27")
+
+[node name="JavaSectTitle" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" unique_id=529342121]
+layout_mode = 2
+text = "java_check.text.title"
+label_settings = SubResource("LabelSettings_bd47y")
+
+[node name="Version" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" unique_id=1879819203]
+layout_mode = 2
+
+[node name="VersionLabel" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/Version" unique_id=1093691069]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "java_check.text.version"
+label_settings = SubResource("LabelSettings_5dfkw")
+
+[node name="VersionDisplay" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/Version" unique_id=304902586]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "general.checking"
+label_settings = SubResource("LabelSettings_thkbs")
+horizontal_alignment = 2
+
+[node name="Result" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" unique_id=1787156456]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/Result" unique_id=1023718736]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "java_check.text.result"
+label_settings = SubResource("LabelSettings_5dfkw")
+
+[node name="Icon" type="TextureRect" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/Result" unique_id=2047123407]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("6_5vw27")
+expand_mode = 2
+
+[node name="ResultDisplay" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/Result" unique_id=1493371445]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "general.checking"
+label_settings = SubResource("LabelSettings_4c57u")
+horizontal_alignment = 2
+
+[node name="Seperator" type="ColorRect" parent="VSplitContainer/DetectionContainer/DetectionScreen" unique_id=1588060029]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(0.2824075, 0.28240746, 0.28240746, 1)
+
+[node name="CPUInfoMargin" type="MarginContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen" unique_id=560191169]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_h2yge")
+
+[node name="CPUInfoContainer" type="VBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin" unique_id=413220384]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("10_efxa6")
+safe_icon = ExtResource("5_7mycd")
+affected_icon = ExtResource("8_4c57u")
+checking_icon = ExtResource("6_5vw27")
+
+[node name="CPUSectTitle" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" unique_id=814495449]
+layout_mode = 2
+text = "cpu_check.text.title"
+label_settings = SubResource("LabelSettings_bd47y")
+
+[node name="AVX512F" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" unique_id=1087060624]
+layout_mode = 2
+script = ExtResource("5_272bh")
+set_id = "avx512f"
+
+[node name="SetName" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/AVX512F" unique_id=1963210968]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "AVX512F"
+label_settings = SubResource("LabelSettings_5dfkw")
+
+[node name="Icon" type="TextureRect" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/AVX512F" unique_id=1821681437]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("6_5vw27")
+expand_mode = 2
+
+[node name="Result" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/AVX512F" unique_id=751301413]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "general.checking"
+label_settings = SubResource("LabelSettings_efxa6")
+horizontal_alignment = 2
+
+[node name="AVX512BW" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" unique_id=282409407]
+layout_mode = 2
+script = ExtResource("5_272bh")
+set_id = "avx512bw"
+
+[node name="SetName" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/AVX512BW" unique_id=760518069]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "AVX512BW"
+label_settings = SubResource("LabelSettings_5dfkw")
+
+[node name="Icon" type="TextureRect" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/AVX512BW" unique_id=1500241409]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("6_5vw27")
+expand_mode = 2
+
+[node name="Result" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/AVX512BW" unique_id=1619963628]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "general.checking"
+label_settings = SubResource("LabelSettings_dg77c")
+horizontal_alignment = 2
+
+[node name="AVX512VBMI" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" unique_id=2079106235]
+layout_mode = 2
+script = ExtResource("5_272bh")
+set_id = "avx512vbmi"
+
+[node name="SetName" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/AVX512VBMI" unique_id=1398692995]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "AVX512VBMI"
+label_settings = SubResource("LabelSettings_5dfkw")
+
+[node name="Icon" type="TextureRect" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/AVX512VBMI" unique_id=2059221315]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("6_5vw27")
+expand_mode = 2
+
+[node name="Result" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/AVX512VBMI" unique_id=282702857]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "general.checking"
+label_settings = SubResource("LabelSettings_ycdy4")
+horizontal_alignment = 2
+
+[node name="BMI2" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" unique_id=291385576]
+layout_mode = 2
+script = ExtResource("5_272bh")
+set_id = "bmi2"
+
+[node name="SetName" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/BMI2" unique_id=1340005540]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BMI2"
+label_settings = SubResource("LabelSettings_5dfkw")
+
+[node name="Icon" type="TextureRect" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/BMI2" unique_id=1473944991]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("6_5vw27")
+expand_mode = 2
+
+[node name="Result" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/BMI2" unique_id=1687496417]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "general.checking"
+label_settings = SubResource("LabelSettings_w48qg")
+horizontal_alignment = 2
+
+[node name="CPUExplanation" type="RichTextLabel" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" unique_id=246736097]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+text = "cpu_check.text.explanation"
+
+[node name="ResultMargin" type="MarginContainer" parent="VSplitContainer" unique_id=321830869]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("1_h2yge")
+
+[node name="ResultContainer" type="HBoxContainer" parent="VSplitContainer/ResultMargin" unique_id=1136214433]
+layout_mode = 2
+script = ExtResource("12_dg77c")
+safe_icon = ExtResource("8_kek77")
+risk_icon = ExtResource("14_vivmo")
+danger_icon = ExtResource("15_2cqfq")
+checking_icon = ExtResource("6_5vw27")
+
+[node name="IconMargin" type="MarginContainer" parent="VSplitContainer/ResultMargin/ResultContainer" unique_id=46547763]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="MajorIcon" type="TextureRect" parent="VSplitContainer/ResultMargin/ResultContainer/IconMargin" unique_id=1460542681]
+layout_mode = 2
+texture = ExtResource("6_5vw27")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VSplitContainer/ResultMargin/ResultContainer" unique_id=1477058787]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Issue" type="Label" parent="VSplitContainer/ResultMargin/ResultContainer/VBoxContainer" unique_id=1787005612]
+layout_mode = 2
+text = "final_result.checking.issue"
+label_settings = SubResource("LabelSettings_1kscl")
+
+[node name="Fix" type="Label" parent="VSplitContainer/ResultMargin/ResultContainer/VBoxContainer" unique_id=2120164361]
+layout_mode = 2
+text = "final_result.checking.fix"
+label_settings = SubResource("LabelSettings_pi62g")
+
+[node name="ErrorPopup" type="ColorRect" parent="." unique_id=1601488347]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.5019608)
+
+[node name="ErrorMargin" type="MarginContainer" parent="ErrorPopup" unique_id=1118089634]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 20
+
+[node name="ErrorContainer" type="HBoxContainer" parent="ErrorPopup/ErrorMargin" unique_id=1517770693]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ErrorIcon" type="TextureRect" parent="ErrorPopup/ErrorMargin/ErrorContainer" unique_id=793127188]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture = ExtResource("16_2cqfq")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="ErrorText" type="VBoxContainer" parent="ErrorPopup/ErrorMargin/ErrorContainer" unique_id=1286591172]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText" unique_id=579700728]
+layout_mode = 2
+text = "Error occured during retreving data"
+label_settings = SubResource("LabelSettings_wa5ca")
+
+[node name="MsgBackground" type="ColorRect" parent="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText" unique_id=349366780]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ErrorMessage" type="RichTextLabel" parent="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/MsgBackground" unique_id=670009950]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 876.0
+offset_bottom = 290.0
+size_flags_vertical = 3
+focus_mode = 2
+theme_override_colors/default_color = Color(0.8156863, 0.007843138, 0.105882354, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/selection_color = Color(0.65882355, 0.09803922, 0.09803922, 0.8)
+theme_override_colors/table_odd_row_bg = Color(1, 1, 1, 1)
+theme_override_colors/table_even_row_bg = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_yaehf")
+text = "/home/jerryhan3/.local/share/godot/app_userdata/Java4Shell Detector/Python/linux.x86_64.bin: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_ABI_GNU2_TLS' not found (required by /tmp/onefile_492050_451687_Rb3tGEB_AWw/libpython3.14.so.1.0)"
+selection_enabled = true
+
+[node name="ButtonContainer" type="HBoxContainer" parent="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText" unique_id=882190946]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer" unique_id=973154306]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_h2yge")
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+script = ExtResource("17_yaehf")
+
+[node name="Report" type="Button" parent="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer" unique_id=203134863]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_h2yge")
+theme_override_font_sizes/font_size = 32
+text = "Report Issue"
+script = ExtResource("18_074og")
+
+[connection signal="cpu_info_transfer" from="." to="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" method="_on_main_cpu_info_transfer"]
+[connection signal="final_result_transfer" from="." to="VSplitContainer/ResultMargin/ResultContainer" method="_on_main_final_result_transfer"]
+[connection signal="java_info_transfer" from="." to="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" method="_on_main_java_info_transfer"]
+[connection signal="pressed" from="VSplitContainer/DetectionContainer/StartupScreen/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Quit" to="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Quit" method="_on_pressed"]
+[connection signal="pressed" from="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Report" to="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Report" method="_on_pressed"]
