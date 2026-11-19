@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="Java4Shell Detector"
+config/description="A detector to check Java4Shell vulnerability."
+config/version="1.0"
 run/main_scene="uid://ceckcsf08p2pr"
 config/features=PackedStringArray("4.7")
+boot_splash/bg_color=Color(1, 1, 1, 1)
+boot_splash/stretch_mode=2
+boot_splash/image="uid://8ehwciuwhad8"
+config/icon="uid://pnjhwc7hua8o"
 
 [autoload]
 
@@ -20,7 +26,7 @@ PyRunner="*uid://ckchv4w1grlq1"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/BinBundle/plugin.cfg", "res://addons/PyBundle/plugin.cfg")
+enabled=PackedStringArray("res://addons/AppImageExport/plugin.cfg", "res://addons/BinBundle/plugin.cfg", "res://addons/PyBundle/plugin.cfg")
 
 [internationalization]
 

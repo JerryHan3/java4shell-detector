@@ -22,9 +22,16 @@ func _on_main_final_result_transfer(result: int) -> void:
 		$VBoxContainer/Issue.label_settings.font_color = risk_color
 		$VBoxContainer/Fix.text = tr("final_result.risk.fix")
 		$VBoxContainer/Fix.label_settings.font_color = risk_color
-	else:
-		$IconMargin/MajorIcon.texture = danger_color
+	elif result == 2:
+		$IconMargin/MajorIcon.texture = danger_icon
 		$VBoxContainer/Issue.text = tr("final_result.danger.issue")
 		$VBoxContainer/Issue.label_settings.font_color = danger_color
 		$VBoxContainer/Fix.text = tr("final_result.danger.fix")
 		$VBoxContainer/Fix.label_settings.font_color = danger_color
+	else:
+		
+		$IconMargin/MajorIcon.texture = risk_icon
+		$VBoxContainer/Issue.text = tr("final_result.not_found.issue")
+		$VBoxContainer/Issue.label_settings.font_color = risk_color
+		$VBoxContainer/Fix.text = tr("final_result.not_found.fix")
+		$VBoxContainer/Fix.label_settings.font_color = risk_color

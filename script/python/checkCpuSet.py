@@ -1,7 +1,33 @@
-from cpuinfo import get_cpu_info
+import os
+
+
+def _get_flags() -> list[str]:
+    """
+    Read the CPU feature flags through `py-cpuinfo`'s public API.
+
+    Only the public `get_cpu_info()` is used so the check keeps working across every
+    platform (Linux / Windows / macOS) without relying on private, platform-specific
+    helpers that may change between releases.
+
+    `get_cpu_info()` shells out to tools such as `dmesg` and reads `os.environ['PATH']`
+    while probing. A process started with an empty environment (some launchers, services
+    and sandboxes do this) therefore makes it raise `KeyError: 'PATH'` before it ever
+    reaches the CPUID probe, so a missing `PATH` is supplied temporarily.
+    """
+    from cpuinfo import get_cpu_info
+    if 'PATH' in os.environ:
+        return get_cpu_info()["flags"]
+    # An empty environment: give py-cpuinfo a PATH for the duration of the probe and put the
+    # environment back exactly as it was, so this cannot leak into later code.
+    os.environ['PATH'] = os.defpath
+    try:
+        return get_cpu_info()["flags"]
+    finally:
+        del os.environ['PATH']
+
 
 def checkVulnerableSet() -> list[bool]:
-    flags = get_cpu_info()["flags"]
+    flags = _get_flags()
     return ["avx512f" in flags, "avx512bw" in flags, "avx512vbmi" in flags, "bmi2" in flags]
 
 def main():

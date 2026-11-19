@@ -13,7 +13,7 @@ dest_files=["res://i18n/i18n.zh_CN.translation", "res://i18n/i18n.en_US.translat
 
 [params]
 
-compress=1
+compress=0
 delimiter=0
 unescape_keys=false
 unescape_translations=true

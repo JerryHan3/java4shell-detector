@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://3wm2wbcyjdfu" path="res://script/java_info_container.gd" id="6_kek77"]
 [ext_resource type="Texture2D" uid="uid://bb1mwnibelcwi" path="res://assets/icon/危害_harm.svg" id="8_4c57u"]
 [ext_resource type="Texture2D" uid="uid://cxddrlfqcd5uy" path="res://assets/icon/校验_check-one.svg" id="8_kek77"]
+[ext_resource type="Texture2D" uid="uid://cabw6xfh2elr7" path="res://assets/icon/存疑文件_file-question.svg" id="9_cegan"]
 [ext_resource type="Script" uid="uid://ipl8p8vm3sq1" path="res://script/cpu_info_container.gd" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://dquj4wxelkjfg" path="res://script/result_container.gd" id="12_dg77c"]
 [ext_resource type="Texture2D" uid="uid://dfeyrh5qiiayh" path="res://assets/icon/注意_attention.svg" id="14_vivmo"]
@@ -146,7 +147,6 @@ icon = ExtResource("2_1bvp3")
 flat = true
 
 [node name="JavaFileSelect" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/StartupScreen" unique_id=1793718373]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -164,9 +164,10 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_h2yge")
-placeholder_text = "Choose custom java binary..."
+placeholder_text = "startup.tooltip.path_input"
 
 [node name="FileChooseButton" type="Button" parent="VSplitContainer/DetectionContainer/StartupScreen/JavaFileSelect" unique_id=977001286]
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("3_lquwl")
@@ -187,6 +188,7 @@ size_flags_horizontal = 3
 script = ExtResource("6_kek77")
 safe_icon = ExtResource("5_7mycd")
 affected_icon = ExtResource("8_4c57u")
+not_found_icon = ExtResource("9_cegan")
 checking_icon = ExtResource("6_5vw27")
 
 [node name="JavaSectTitle" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" unique_id=529342121]

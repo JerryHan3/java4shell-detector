@@ -1,8 +1,10 @@
 ﻿keys,zh_CN,en_US
 general.title,Java4Shell 漏洞检测,Java4Shell Detector
 general.checking,检测中,Checking
+startup.tooltip.path_input,请输入Java路径...,Insert java binary path...
 java_check.result.affected,危险,Affected
 java_check.result.safe,安全,Safe
+java_check.result.not_found,未找到,Not Found
 java_check.text.title,Java版本检测,Java Version
 java_check.text.version,当前版本,Current Version
 java_check.text.result,检测结果,Check Result
@@ -18,3 +20,5 @@ final_result.safe.issue,设备安全,Device Safe
 final_result.safe.fix,恭喜！您的设备不受Java4Shell漏洞的影响。,Nice! Your device is not affected by Java4Shell vulnerability.
 final_result.checking.issue,正在检测漏洞……,Checking Vulnerability...
 final_result.checking.fix,请稍等，我们正在收集所需数据。,Please standby while we gather needed data.
+final_result.not_found.issue,找不到Java,Java Not Found
+final_result.not_found.fix,请在首页的文本框输入正确的Java路径后重新检测。,"Please insert correct path to Java binary on the start screen, and rerun the detect."

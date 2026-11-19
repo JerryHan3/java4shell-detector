@@ -77,11 +77,17 @@ func execute_with_pipe_in_context(ctx_path:String, run_path:String, run_args:Pac
 
 ## Kills the sub-process.
 func stop() -> void:
-	# Stop listener threads.
+	if not active: return
+	# Stop listener threads. They may never have been started (the executable failed to
+	# resolve, so `start` bailed out) and `wait_to_finish` errors on those; skip them.
+	# A thread that broke out on its own is finished but still "started", so it MUST be joined:
+	# restarting a joined-out thread fails with "Thread already started", which would leave the
+	# next run with no listener at all. `_output_listener` stops itself through
+	# `stop.call_deferred()`, which runs on the main thread, so it is never joined from itself.
 	output_thread.set_meta('canceled', true)
 	error_thread.set_meta('canceled', true)
-	output_thread.wait_to_finish()
-	error_thread.wait_to_finish()
+	for thread:Thread in [output_thread, error_thread]:
+		if thread.is_started(): thread.wait_to_finish()
 	# Kill sub-process.
 	OS.kill(pid)
 	active = false
