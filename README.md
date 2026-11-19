@@ -2,10 +2,10 @@
 
 A detector to detect a critical vulnerability found in Java. See [the security advisory](https://calif.io/java4shell) to learn more about it.
 
-If java flagged as "AFFECTED" and all 4 CPU instruction sets are supported, you are vulnerable to RCE attack via Java4Shell. **UPDATE YOUR JAVA INSTALLATION IMMEDIATELY. **
+If java flagged as "AFFECTED" and all 4 CPU instruction sets are supported, you are vulnerable to RCE attack via Java4Shell. **UPDATE YOUR JAVA INSTALLATION IMMEDIATELY.**  
 Even though your CPU doesn't support all 4 instruction sets, Using a vulnerable java installation is still not recommended.
 
-Currently support Windows and Linux.
+Currently supports Windows and Linux.
 
 ## Install
 
