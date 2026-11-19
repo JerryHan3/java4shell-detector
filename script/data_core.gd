@@ -6,11 +6,12 @@ extends Node
 ## and [param result] is meaningless; callers must render the "not detected" state instead of "safe".
 signal java_info_transfer(status: int, verstr: String, result: bool)
 ## Emitted to transfer cpu instruction set check data.
-signal cpu_info_transfer(avx512f: bool, avx512bw: bool, avx512vbmi: bool, bmi2: bool)
+signal cpu_info_transfer(avx512f: bool, avx512bw: bool, avx512vbmi: bool, bmi2: bool, arch: String)
 ## Emitted to transfer final result.[br]
 ## Result is represented by an interger: 0 for safe, 1 for risk (java vulnerable but insufficient cpu
 ## set), 2 for danger (both vulnerable), 3 for "java not detected" (inconclusive, NOT safe).
 signal final_result_transfer(result: int)
+signal reset_java_screen
 
 enum {
 	JAVA_STATUS_OK = 0,
@@ -44,10 +45,10 @@ var cpu_check_total_result: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#PyRunner.output_received.connect(_on_output_received)
 	PyRunner.error_received.connect(_on_error_received)
 
 func _on_start_button_pressed():
+	$VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/JavaFileSelect/FileSelection.text = $VSplitContainer/DetectionContainer/StartupScreen/JavaFileSelect/FileSelection.text
 	$VSplitContainer/DetectionContainer/StartupScreen.visible = false
 	$VSplitContainer/DetectionContainer/DetectionScreen.visible = true
 	
@@ -60,11 +61,20 @@ func _on_start_button_pressed():
 ## Returns whether the check ran to completion. A missing Java is a valid conclusion, so this
 ## still returns [code]true[/code]; only a broken or timed-out check returns [code]false[/code].
 func run_java_version_check() -> bool:
-	var java_path = $VSplitContainer/DetectionContainer/StartupScreen/JavaFileSelect/FileSelection.text.strip_edges()
+	var JavaFileSelection: LineEdit = $VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/JavaFileSelect/FileSelection
+	var JavaCheckButton: Button = $VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/RecheckMargin/Button
+	
+	JavaFileSelection.editable = false
+	JavaCheckButton.disabled = true
+	reset_java_screen.emit()
+	
+	var java_path = JavaFileSelection.text.strip_edges()
 	if java_path != "" and not FileAccess.file_exists(java_path):
 		# The user explicitly picked a binary that no longer exists. Do not silently fall back to
 		# a system JVM, that would report a result for something the user did not ask about.
 		_emit_java_status(JAVA_STATUS_INVALID)
+		JavaFileSelection.editable = true
+		JavaCheckButton.disabled = false
 		return true
 	print("Starting java check Python script...")
 	if not _start_python_entry_point(java_check_path): return false
@@ -75,6 +85,8 @@ func run_java_version_check() -> bool:
 	PyRunner.stop()
 	if result.output == null:
 		_on_error_received(_python_failure_reason(result, java_check_timeout))
+		JavaFileSelection.editable = true
+		JavaCheckButton.disabled = false
 		return false
 	var java_check_raw: String = (result.output as String).strip_edges()
 	print("Received raw response data")
@@ -84,30 +96,44 @@ func run_java_version_check() -> bool:
 			var jcl = java_check_raw.split(" ")
 			if len(jcl) != 3:
 				_on_error_received("Wrong length of java_check_list: %s" % java_check_raw)
+				JavaFileSelection.editable = true
+				JavaCheckButton.disabled = false
 				return false
 			java_check_result = str2bool(jcl[2])
 			java_installed = true
 			print("Java version check done! Current version: %s, check result: %s" % [
 				jcl[1], "AFFECTED" if java_check_result else "Safe"])
 			java_info_transfer.emit(JAVA_STATUS_OK, jcl[1], java_check_result)
+			JavaFileSelection.editable = true
+			JavaCheckButton.disabled = false
 			return true
 		"NOT_FOUND":
 			print("Java version check done! No Java installed.")
 			_emit_java_status(JAVA_STATUS_NOT_FOUND)
+			JavaFileSelection.editable = true
+			JavaCheckButton.disabled = false
 			return true
 		"INVALID":
 			var detail: String = java_check_raw.trim_prefix("INVALID").strip_edges()
 			print("Java version check done! Invalid Java: %s" % detail)
 			_emit_java_status(JAVA_STATUS_INVALID)
+			JavaFileSelection.editable = true
+			JavaCheckButton.disabled = false
 			return true
 		"TIMEOUT":
 			_on_error_received("Java check timed out inside the Python script.")
+			JavaFileSelection.editable = true
+			JavaCheckButton.disabled = false
 			return false
 		"BROKEN", "ERROR":
 			_on_error_received(java_check_raw.trim_prefix(status).strip_edges())
+			JavaFileSelection.editable = true
+			JavaCheckButton.disabled = false
 			return false
 		_:
 			_on_error_received("Unexpected java check response: %s" % java_check_raw)
+			JavaFileSelection.editable = true
+			JavaCheckButton.disabled = false
 			return false
 
 func _emit_java_status(status: int) -> void:
@@ -128,15 +154,16 @@ func run_cpu_set_check() -> bool:
 		_on_error_received(cpu_check_raw.trim_prefix("ERROR").strip_edges())
 		return false
 	var ccl = cpu_check_raw.split(" ")
-	if len(ccl) != 4: 
+	if len(ccl) != 5: 
 		_on_error_received("Wrong length of cpu_check_list: %s" % cpu_check_raw)
 		return false
 	var avx512f: bool = str2bool(ccl[0])
 	var avx512bw: bool = str2bool(ccl[1])
 	var avx512vbmi: bool = str2bool(ccl[2])
 	var bmi2: bool = str2bool(ccl[3])
-	cpu_check_total_result = avx512f and avx512bw and avx512vbmi and bmi2
-	cpu_info_transfer.emit(avx512f, avx512bw, avx512vbmi, bmi2)
+	var arch: String = ccl[4]
+	cpu_check_total_result = avx512f and avx512bw and avx512vbmi and bmi2 and arch == "x86_64"
+	cpu_info_transfer.emit(avx512f, avx512bw, avx512vbmi, bmi2, arch)
 	return true
 
 ## Awaits the next Python output line.
@@ -215,3 +242,11 @@ func _on_error_received(data: String) -> void:
 	printerr(data)
 	$ErrorPopup.visible = true
 	$ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/MsgBackground/ErrorMessage.text = data
+
+func _on_reset_all_screen() -> void:
+	$VSplitContainer/DetectionContainer/StartupScreen.visible = true
+	$VSplitContainer/DetectionContainer/DetectionScreen.visible = false
+
+func _on_recheck_java_button_pressed() -> void:
+	if not await run_java_version_check(): return
+	update_final_result()

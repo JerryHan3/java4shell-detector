@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://dfeyrh5qiiayh" path="res://assets/icon/注意_attention.svg" id="14_vivmo"]
 [ext_resource type="Texture2D" uid="uid://2y6ips5a8a2" path="res://assets/icon/警报_alarm.svg" id="15_2cqfq"]
 [ext_resource type="Texture2D" uid="uid://bvyaw4q047kh2" path="res://assets/icon/报错_caution.svg" id="16_2cqfq"]
-[ext_resource type="Script" uid="uid://c3yprjwtdxr1a" path="res://script/quit.gd" id="17_yaehf"]
 [ext_resource type="Script" uid="uid://c03dxcar1x4f4" path="res://script/report.gd" id="18_074og"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_maftn"]
@@ -41,6 +40,11 @@ font_size = 24
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_4c57u"]
+font = ExtResource("2_lquwl")
+font_size = 24
+font_color = Color(0.2901961, 0.5647059, 0.8862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cegan"]
 font = ExtResource("2_lquwl")
 font_size = 24
 font_color = Color(0.2901961, 0.5647059, 0.8862745, 1)
@@ -237,6 +241,39 @@ text = "general.checking"
 label_settings = SubResource("LabelSettings_4c57u")
 horizontal_alignment = 2
 
+[node name="Seperator" type="ColorRect" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" unique_id=1135864881]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="JavaFileSelect" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" unique_id=1363057179]
+layout_mode = 2
+
+[node name="FileSelection" type="LineEdit" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/JavaFileSelect" unique_id=1757255015]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_h2yge")
+placeholder_text = "startup.tooltip.path_input"
+
+[node name="FileChooseButton" type="Button" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/JavaFileSelect" unique_id=2006643430]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("3_lquwl")
+expand_icon = true
+
+[node name="RecheckMargin" type="MarginContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" unique_id=2140097131]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 2
+
+[node name="Button" type="Button" parent="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/RecheckMargin" unique_id=644953720]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "java_check.text.recheck"
+
 [node name="Seperator" type="ColorRect" parent="VSplitContainer/DetectionContainer/DetectionScreen" unique_id=1588060029]
 custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
@@ -259,6 +296,37 @@ checking_icon = ExtResource("6_5vw27")
 layout_mode = 2
 text = "cpu_check.text.title"
 label_settings = SubResource("LabelSettings_bd47y")
+
+[node name="CPUArch" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" unique_id=1539926195]
+layout_mode = 2
+script = ExtResource("5_272bh")
+set_id = "arch"
+
+[node name="SetName" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/CPUArch" unique_id=60144356]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "cpu_check.text.arch"
+label_settings = SubResource("LabelSettings_5dfkw")
+
+[node name="Icon" type="TextureRect" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/CPUArch" unique_id=1452397968]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("6_5vw27")
+expand_mode = 2
+
+[node name="Result" type="Label" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer/CPUArch" unique_id=383438479]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "general.checking"
+label_settings = SubResource("LabelSettings_cegan")
+horizontal_alignment = 2
+
+[node name="Seperator" type="ColorRect" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" unique_id=397955539]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
 
 [node name="AVX512F" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" unique_id=1087060624]
 layout_mode = 2
@@ -488,8 +556,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_h2yge")
 theme_override_font_sizes/font_size = 32
-text = "Quit"
-script = ExtResource("17_yaehf")
+text = "Reset"
 
 [node name="Report" type="Button" parent="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer" unique_id=203134863]
 layout_mode = 2
@@ -502,6 +569,12 @@ script = ExtResource("18_074og")
 [connection signal="cpu_info_transfer" from="." to="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" method="_on_main_cpu_info_transfer"]
 [connection signal="final_result_transfer" from="." to="VSplitContainer/ResultMargin/ResultContainer" method="_on_main_final_result_transfer"]
 [connection signal="java_info_transfer" from="." to="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" method="_on_main_java_info_transfer"]
+[connection signal="reset_java_screen" from="." to="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" method="_on_checking_java_version"]
+[connection signal="reset_java_screen" from="." to="VSplitContainer/ResultMargin/ResultContainer" method="_on_main_reset_all_screen"]
 [connection signal="pressed" from="VSplitContainer/DetectionContainer/StartupScreen/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Quit" to="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Quit" method="_on_pressed"]
+[connection signal="pressed" from="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer/RecheckMargin/Button" to="." method="_on_recheck_java_button_pressed"]
+[connection signal="pressed" from="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Quit" to="." method="_on_reset_all_screen"]
+[connection signal="pressed" from="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Quit" to="VSplitContainer/DetectionContainer/DetectionScreen/JavaInfoMargin/JavaInfoContainer" method="_on_checking_java_version"]
+[connection signal="pressed" from="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Quit" to="VSplitContainer/DetectionContainer/DetectionScreen/CPUInfoMargin/CPUInfoContainer" method="_on_main_reset_all_screen"]
+[connection signal="pressed" from="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Quit" to="VSplitContainer/ResultMargin/ResultContainer" method="_on_main_reset_all_screen"]
 [connection signal="pressed" from="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Report" to="ErrorPopup/ErrorMargin/ErrorContainer/ErrorText/ButtonContainer/Report" method="_on_pressed"]

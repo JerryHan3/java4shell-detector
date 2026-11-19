@@ -26,5 +26,6 @@ func _on_main_java_info_transfer(status: int, verstr: String, result: bool) -> v
 
 func _on_checking_java_version():
 	$Result/Icon.texture = checking_icon
-	$Result/ResultDisplay.text = tr("java_check.result.checking")
+	$Result/ResultDisplay.text = tr("general.checking")
 	$Result/ResultDisplay.label_settings.font_color = checking_color
+	$Version/VersionDisplay.text = tr("general.checking")

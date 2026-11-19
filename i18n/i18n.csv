@@ -1,17 +1,19 @@
 ﻿keys,zh_CN,en_US
 general.title,Java4Shell 漏洞检测,Java4Shell Detector
 general.checking,检测中,Checking
-startup.tooltip.path_input,请输入Java路径...,Insert java binary path...
+startup.tooltip.path_input,请输入Java路径...（留空检测系统默认Java）,Insert java binary path...(Leave blank to check system default java)
 java_check.result.affected,危险,Affected
 java_check.result.safe,安全,Safe
 java_check.result.not_found,未找到,Not Found
 java_check.text.title,Java版本检测,Java Version
 java_check.text.version,当前版本,Current Version
 java_check.text.result,检测结果,Check Result
+java_check.text.recheck,重新进行Java检测,Rerun Java Check
 cpu_check.result.unsupported,不支持,Unsupported
 cpu_check.result.supported,支持,Supported
 cpu_check.text.title,CPU指令集,CPU Instruction Set
-cpu_check.text.explanation,漏洞需要目标设备的CPU支持上述4项CPU指令集才能生效,"To meet the requirement of Java4Shell vulnerability, the CPU on target machine have to support all 4 instruction sets above."
+cpu_check.text.arch,CPU架构,CPU Architecture
+cpu_check.text.explanation,漏洞需要目标设备的CPU是x86_64架构，且支持上述4项CPU指令集才能生效。,The vulnerability requires the target device's CPU to be of the x86_64 architecture and to support the four CPU instruction sets mentioned above in order to take effect.
 final_result.danger.issue,设备存在漏洞,Device Vulnerable
 final_result.danger.fix,请尽快更新安装的Java版本！,Please update your Java installation ASAP!
 final_result.risk.issue,漏洞因CPU不兼容被规避,Mitigated by Incompatible CPU
@@ -21,4 +23,4 @@ final_result.safe.fix,恭喜！您的设备不受Java4Shell漏洞的影响。,Ni
 final_result.checking.issue,正在检测漏洞……,Checking Vulnerability...
 final_result.checking.fix,请稍等，我们正在收集所需数据。,Please standby while we gather needed data.
 final_result.not_found.issue,找不到Java,Java Not Found
-final_result.not_found.fix,请在首页的文本框输入正确的Java路径后重新检测。,"Please insert correct path to Java binary on the start screen, and rerun the detect."
+final_result.not_found.fix,请在上方文本框输入正确的Java路径后重新检测。,"Please insert correct path to Java binary in the field above, and rerun the detect."

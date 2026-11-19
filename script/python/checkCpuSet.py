@@ -1,7 +1,7 @@
 import os
 
 
-def _get_flags() -> list[str]:
+def _get_info() -> dict:
     """
     Read the CPU feature flags through `py-cpuinfo`'s public API.
 
@@ -16,19 +16,20 @@ def _get_flags() -> list[str]:
     """
     from cpuinfo import get_cpu_info
     if 'PATH' in os.environ:
-        return get_cpu_info()["flags"]
+        return get_cpu_info()
     # An empty environment: give py-cpuinfo a PATH for the duration of the probe and put the
     # environment back exactly as it was, so this cannot leak into later code.
     os.environ['PATH'] = os.defpath
     try:
-        return get_cpu_info()["flags"]
+        return get_cpu_info()
     finally:
         del os.environ['PATH']
 
 
-def checkVulnerableSet() -> list[bool]:
-    flags = _get_flags()
-    return ["avx512f" in flags, "avx512bw" in flags, "avx512vbmi" in flags, "bmi2" in flags]
+def checkVulnerableSet() -> list:
+    info_raw = _get_info()
+    flags = info_raw["flags"]
+    return ["avx512f" in flags, "avx512bw" in flags, "avx512vbmi" in flags, "bmi2" in flags, info_raw["arch"].lower()]
 
 def main():
     """
@@ -40,7 +41,7 @@ def main():
     """
     try:
         result = checkVulnerableSet()
-        print(f"{result[0]} {result[1]} {result[2]} {result[3]}", flush=True)
+        print(f"{result[0]} {result[1]} {result[2]} {result[3]} {result[4]}", flush=True)
     except Exception as exc:
         print(f"ERROR {exc}", flush=True)
 
