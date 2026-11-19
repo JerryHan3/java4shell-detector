@@ -8,7 +8,7 @@ extends VBoxContainer
 @export_color_no_alpha var checking_color: Color = Color("#4a90e2")
 
 func _on_main_java_info_transfer(verstr: String, result: bool) -> void:
-	$Version/VersionLabel.text = verstr
+	$Version/VersionDisplay.text = verstr
 	if result:
 		$Result/Icon.texture = affected_icon
 		$Result/ResultDisplay.text = tr("java_check.result.affected")

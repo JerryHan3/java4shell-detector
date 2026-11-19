@@ -146,6 +146,7 @@ icon = ExtResource("2_1bvp3")
 flat = true
 
 [node name="JavaFileSelect" type="HBoxContainer" parent="VSplitContainer/DetectionContainer/StartupScreen" unique_id=1793718373]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
